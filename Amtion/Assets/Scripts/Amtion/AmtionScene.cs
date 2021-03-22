@@ -2,20 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class AmtionScene : MonoBehaviour
 {
     public virtual void Start()
-    {
-
-    }
-
-    public void Wait()
-    {
-
-    }
-
-    public void Play()
     {
 
     }
@@ -25,16 +16,19 @@ public class AmtionScene : MonoBehaviour
         if(Text.gameObject == null)
         {
             Text.gameObject = new GameObject(Text.DisplayText);
-            Text.TextComponent = Text.gameObject.AddComponent<TMP_Text>();
+            Text.TextComponent = Text.gameObject.AddComponent<TextMeshPro>();
             Text.Initialize();
         }
 
         if(Text.TextComponent == null)
         {
-            Text.TextComponent = Text.gameObject.AddComponent<TMP_Text>();
+            Text.TextComponent = Text.gameObject.AddComponent<TextMeshPro>();
             Text.Initialize();
         }
+    }
 
+    public void Play()
+    {
 
     }
 }
