@@ -20,6 +20,9 @@ public class RuntimeGraph : SingletonBaseDestory<RuntimeGraph>
     public Dictionary<string, RuntimePort> Ports;
     [HideInInspector]
     public List<RuntimeLine> Lines;
+
+    [HideInInspector]
+    public bool Saving = false;
     #endregion
 
     public void Load(GraphBase newGraph = null)
