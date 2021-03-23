@@ -22,8 +22,9 @@ namespace Framework
             //如果对象是GameObject 则实例化后再返回出去 
             if (res is GameObject)
             {
-                callback?.Invoke(res);
-                return GameObject.Instantiate(res);
+                GameObject obj = Instantiate(res as GameObject);
+                callback?.Invoke(obj as T);
+                return obj as T;
             }
             else//AudioClip TextAsset 等无需实例化的物体可以直接加载
             {

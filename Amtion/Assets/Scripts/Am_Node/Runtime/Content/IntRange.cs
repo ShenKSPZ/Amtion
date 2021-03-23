@@ -3,24 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IntRange : MonoBehaviour
+public class IntRange : Inputer
 {
-
+    public Text Label;
     public Slider range;
 
-    public int GetValue()
+    public override object GetValue()
     {
         return Mathf.FloorToInt(range.value);
     }
 
-    public void SetValue(int value)
+    public override void SetValue(object value)
     {
-        range.value = value;
+        range.value = (int)value;
     }
 
-    public void SetRange(int min, int max)
+    public void SetRange(float min, float max)
     {
         range.minValue = min;
         range.maxValue = max;
+    }
+
+    public override void SetLabel(string value)
+    {
+        Label.text = value;
+    }
+
+    public override string GetLabel()
+    {
+        return Label.text;
     }
 }

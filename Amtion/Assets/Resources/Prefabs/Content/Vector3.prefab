@@ -1235,6 +1235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3c824d11944ce418f288b2c74233a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Label: {fileID: 5280437131436056326}
   X: {fileID: 5070188949855558054}
   Y: {fileID: 89121332}
   Z: {fileID: 1225443463}

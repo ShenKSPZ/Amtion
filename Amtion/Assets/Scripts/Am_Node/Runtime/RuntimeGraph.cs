@@ -15,19 +15,32 @@ public class RuntimeGraph : SingletonBaseDestory<RuntimeGraph>
 
     #region Runtime
     [HideInInspector]
-    public List<RuntimeNode> Nodes;
+    public List<RuntimeNode> Nodes = new List<RuntimeNode>();
     [HideInInspector]
-    public Dictionary<string, RuntimePort> Ports;
+    public Dictionary<string, RuntimePort> Ports = new Dictionary<string, RuntimePort>();
     [HideInInspector]
-    public List<RuntimeLine> Lines;
+    public List<RuntimeLine> Lines = new List<RuntimeLine>();
 
     [HideInInspector]
     public bool Saving = false;
     #endregion
 
+    private void Start()
+    {
+        AddNode<StartNode>();
+    }
+
+    public void AddNode<T>()where T : NodeBase, new()
+    {
+        T node = new T();
+        node.Init();
+        graph.Node.Add(node);
+        Load();
+    }
+
     public void Load(GraphBase newGraph = null)
     {
-        graph = newGraph == null ? graph : newGraph;
+        graph = newGraph != null ? newGraph : graph;
 
         StartCoroutine(IE_Load());
     }
@@ -58,18 +71,15 @@ public class RuntimeGraph : SingletonBaseDestory<RuntimeGraph>
     {
         if (graph == null)
             return;
-        StreamWriter sw = new StreamWriter(Path.Combine(Application.streamingAssetsPath, graph.GraphName));
-        sw.Write(JsonConvert.SerializeObject(graph));
-        sw.Close();
+        FileOPS.SaveJson(Application.streamingAssetsPath, graph.GraphName, graph);
     }
 
-    public void Save(string path)
+    public void Save(string path, string name)
     {
         if (graph == null)
             return;
-        StreamWriter sw = new StreamWriter(path);
-        sw.Write(JsonConvert.SerializeObject(graph));
-        sw.Close();
+        graph.GraphName = name;
+        FileOPS.SaveJson(path, graph.GraphName, graph);
     }
 
 }

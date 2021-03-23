@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class NodeBase
 {
-    public int[] Position = new int[] { 0, 0 };
-    public string UID;
-    public string Label;
-    public List<PortBase> InputPorts;
-    public List<PortBase> OutputPorts;
-    public List<NodeContentBase> Content;
+    public int[] NodePosition = new int[] { 0, 0 };
+    public string UID = string.Empty;
+    public string Label = string.Empty;
+    public List<PortBase> InputPorts = new List<PortBase>();
+    public List<PortBase> OutputPorts = new List<PortBase>();
+    public List<string> ShowedPropertiesList = new List<string>();
 
     public virtual void Init()
     {

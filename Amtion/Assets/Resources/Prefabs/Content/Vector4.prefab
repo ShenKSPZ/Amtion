@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9290a2485609ee346b1830d6f5a519d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Label: {fileID: 3595081925754027154}
   X: {fileID: 4539425643694783026}
   Y: {fileID: 8692979098696696224}
   Z: {fileID: 8692979097828289299}

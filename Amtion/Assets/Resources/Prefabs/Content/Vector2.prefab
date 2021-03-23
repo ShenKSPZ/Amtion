@@ -817,6 +817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307e04bbdaee7b544b715b0b81563e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Label: {fileID: 6869536306813196291}
   X: {fileID: 5786688720203210403}
   Y: {fileID: 1590508749875275057}
 --- !u!1 &6869536306813196289

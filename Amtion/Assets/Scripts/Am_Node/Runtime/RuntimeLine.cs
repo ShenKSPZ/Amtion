@@ -28,9 +28,4 @@ public class RuntimeLine : MonoBehaviour
         Renderer.positionCount = segmentNum;
         Renderer.SetPositions(points);
     }
-
-    private void Update()
-    {
-        Draw();
-    }
 }

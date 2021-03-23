@@ -6,10 +6,7 @@ using UnityEngine.Events;
 
 public class AmtionScene : MonoBehaviour
 {
-    public virtual void Start()
-    {
-
-    }
+    public virtual void Start() { }
 
     public void Add(Am_Text Text)
     {

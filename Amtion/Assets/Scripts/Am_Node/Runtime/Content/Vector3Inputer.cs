@@ -3,21 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Vector3Inputer : MonoBehaviour
+public class Vector3Inputer : Inputer
 {
+    public Text Label;
     public InputField X;
     public InputField Y;
     public InputField Z;
 
-    public Vector3 GetValue()
+    public override object GetValue()
     {
         return new Vector3(float.Parse(X.text), float.Parse(Y.text), float.Parse(Z.text));
     }
 
-    public void SetValue(Vector3 v3)
+    public override void SetValue(object v3)
     {
-        X.text = v3.x.ToString();
-        Y.text = v3.y.ToString();
-        Z.text = v3.z.ToString();
+        Vector3 ve = (Vector3)v3;
+        X.text = ve.x.ToString();
+        Y.text = ve.y.ToString();
+        Z.text = ve.z.ToString();
+    }
+
+    public override void SetLabel(string value)
+    {
+        Label.text = value;
+    }
+
+    public override string GetLabel()
+    {
+        return Label.text;
     }
 }

@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BoolInputer : MonoBehaviour
+public class BoolInputer : Inputer
 {
+    public Text Label;
     public Toggle Value;
 
-    public bool GetValue()
+    public override object GetValue()
     {
         return Value.isOn;
     }
 
-    public void GetValue(bool value)
+    public override void SetValue(object value)
     {
-        Value.isOn = value;
+        Value.isOn = (bool)value;
+    }
+
+    public override void SetLabel(string value)
+    {
+        Label.text = value;
+    }
+
+    public override string GetLabel()
+    {
+        return Label.text;
     }
 }

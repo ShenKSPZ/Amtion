@@ -134,7 +134,6 @@ namespace Framework
                 Vector3 pixel = CalculateThreePowerBezierPoint(t, startPoint,
                     controlPoint1, controlPoint2, endPoint);
                 path[i - 1] = pixel;
-                Debug.Log(path[i - 1]);
             }
             return path;
 

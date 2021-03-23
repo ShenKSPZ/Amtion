@@ -3,19 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Vector2Inputer : MonoBehaviour
+public class Vector2Inputer : Inputer
 {
+    public Text Label;
     public InputField X;
     public InputField Y;
 
-    public Vector2 GetValue()
+    public override object GetValue()
     {
         return new Vector2(float.Parse(X.text), float.Parse(Y.text));
     }
 
-    public void SetValue(Vector2 v2)
+    public override void SetValue(object v2)
     {
-        X.text = v2.x.ToString();
-        Y.text = v2.y.ToString();
+        Vector2 ve = (Vector2)v2;
+        X.text = ve.x.ToString();
+        Y.text = ve.y.ToString();
+    }
+
+    public override void SetLabel(string value)
+    {
+        Label.text = value;
+    }
+
+    public override string GetLabel()
+    {
+        return Label.text;
     }
 }

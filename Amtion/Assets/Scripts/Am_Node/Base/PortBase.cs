@@ -9,11 +9,12 @@ public class PortBase
     public string UID;
     public string type;
     public string Text;
-    public List<string> ConnectPortID;
+    public List<string> ConnectPortID = new List<string>();
 
-    public virtual void Init()
+    public virtual PortBase Init()
     {
         SetUID();
+        return this;
     }
 
     public void SetUID()
