@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 189617352}
   - component: {fileID: 189617351}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 3469890882298633592}
   - component: {fileID: 3469890882298633574}
   - component: {fileID: 3469890882298633575}
-  - component: {fileID: 502548021}
+  - component: {fileID: 8591049256808713221}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -178,7 +178,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Button
---- !u!114 &502548021
+--- !u!114 &8591049256808713221
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 3469890883019963533}
   - component: {fileID: 3469890883019963534}
   - component: {fileID: 502548022}
+  - component: {fileID: 502548021}
   m_Layer: 5
   m_Name: ContextButton
   m_TagString: Untagged
@@ -319,7 +320,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3469890883019963532}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 502548021}
+        m_MethodName: CallAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3469890883019963534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,3 +377,16 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &502548021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469890883019963520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c003929ce0b2de46b3cfe6db35e28fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 3469890882298633575}

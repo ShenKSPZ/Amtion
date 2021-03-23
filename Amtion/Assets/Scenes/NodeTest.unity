@@ -883,10 +883,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1376254461}
     m_Modifications:
-    - target: {fileID: 189617349, guid: 0b105a661a2dbd34a86b7faaa049cb6f, type: 3}
-      propertyPath: m_Name
-      value: Arrow
-      objectReference: {fileID: 0}
     - target: {fileID: 189617350, guid: 0b105a661a2dbd34a86b7faaa049cb6f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1722,7 +1718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 901, y: -336}
+  m_AnchoredPosition: {x: 1109.8, y: -197.6}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1376254462
@@ -1741,6 +1737,7 @@ MonoBehaviour:
   Item:
     name: Main
     SubItems: []
+  Pointer: 
 --- !u!114 &1376254463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2815,7 +2812,7 @@ GameObject:
   - component: {fileID: 2125088160}
   - component: {fileID: 2125088162}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2872,7 +2869,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Label
+  m_Text: 
 --- !u!222 &2125088161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4304,11 +4301,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1376254461}
     m_Modifications:
-    - target: {fileID: 8940476534367674879, guid: 6afebb5f1f6c5b54fbe9ab9b09369e09,
-        type: 3}
-      propertyPath: m_Text
-      value: ActualButton
-      objectReference: {fileID: 0}
     - target: {fileID: 8940476534786932759, guid: 6afebb5f1f6c5b54fbe9ab9b09369e09,
         type: 3}
       propertyPath: m_Pivot.x

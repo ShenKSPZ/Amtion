@@ -40,10 +40,16 @@ namespace Amtion.Node.Runtime {
 
         public void AddRightClickMenu()
         {
+            MenuItem Main = new MenuItem();
+            Main.name = "Main";
+
             MenuItem Obj = GenItem("Amtion.Object");
+
             MenuItem Anim = GenItem("Amtion.Animation");
-            RCMenu.Item.SubItems.Add(Obj);
-            RCMenu.Item.SubItems.Add(Anim);
+
+            Main.SubItems.Add(Obj);
+            Main.SubItems.Add(Anim);
+            RCMenu.OverrideMenu(Main);
             print(typeof(Object.Am_Text).Namespace);
         }
 
@@ -55,7 +61,8 @@ namespace Amtion.Node.Runtime {
             Dictionary<string, UnityAction> Items = new Dictionary<string, UnityAction>();
             for (int i = 0; i < objects.Length; i++)
             {
-                Items.Add(objects[i].Name, () => { AddNode(Type.GetType(objects[i].Name + "_Node, Amtion.Node")); });
+                Type temp = objects[i];
+                Items.Add(temp.Name, () => { AddNode(Type.GetType(temp.Name + "_Node, Amtion.Node")); });
             }
 
             menu.ActualItem.Clear();

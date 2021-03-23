@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 1392235301955451019}
   - component: {fileID: 1392235301955451016}
   - component: {fileID: 2555144071489602561}
+  - component: {fileID: 132538772489578158}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -220,7 +221,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1392235301955451018}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 132538772489578158}
+        m_MethodName: CallAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1392235301955451016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +278,19 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &132538772489578158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392235301955451014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c003929ce0b2de46b3cfe6db35e28fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 1392235301066479969}
 --- !u!1 &2555144070566771415
 GameObject:
   m_ObjectHideFlags: 0
