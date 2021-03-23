@@ -6,9 +6,9 @@ using UnityEngine;
 [Serializable]
 public class PortBase
 {
-    public string UID;
-    public string type;
-    public string Text;
+    public string UID = string.Empty;
+    public string type = string.Empty;
+    public string Text = string.Empty;
     public List<string> ConnectPortID = new List<string>();
 
     public virtual PortBase Init()

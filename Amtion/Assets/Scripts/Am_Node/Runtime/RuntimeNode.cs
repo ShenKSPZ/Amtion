@@ -21,18 +21,6 @@ namespace Amtion.Node.Runtime
         Dictionary<string, Inputer> BaseInputer = new Dictionary<string, Inputer>();
         #endregion
 
-        #region BasicType
-        System.Type stringType = typeof(string);
-        System.Type intType = typeof(int);
-        System.Type floatType = typeof(float);
-        System.Type Vector2Type = typeof(Vector2);
-        System.Type Vector3Type = typeof(Vector3);
-        System.Type Vector4Type = typeof(Vector4);
-        System.Type QuaternionType = typeof(Quaternion);
-        System.Type boolType = typeof(bool);
-        System.Type enumType = typeof(System.Enum);
-        #endregion
-
         public void Load(NodeBase node = null)
         {
             //Set current base
@@ -81,12 +69,9 @@ namespace Amtion.Node.Runtime
 
             for (int i = 0; i < info.Length; i++)
             {
-                if (info[i].Name == "NodePosition" ||
-                    info[i].Name == "UID" ||
-                    info[i].Name == "Label")
-                {
+                HideFieldAttribute hideAtt = (HideFieldAttribute)info[i].GetCustomAttribute(typeof(HideFieldAttribute), false);
+                if (hideAtt != null)
                     continue;
-                }
 
                 FieldsCount++;
 
@@ -96,82 +81,84 @@ namespace Amtion.Node.Runtime
                 ContentCounter++;
 
                 System.Type CurType = info[i].FieldType;
-                if (CurType == stringType)
+                string HumanReadableName = info[i].Name.Replace("_", " ");
+
+                if (CurType == RuntimeGraph.I().stringType)
                 {
                     TextAreaAttribute att = (TextAreaAttribute)info[i].GetCustomAttribute(typeof(TextAreaAttribute), false);
                     if (att == null)
-                        GetInputer("String", info[i].Name, info[i].GetValue(Base));
+                        GetInputer("String", HumanReadableName, info[i].GetValue(Base));
                     else
-                        GetInputer("StringMultiline", info[i].Name, info[i].GetValue(Base));
+                        GetInputer("StringMultiline", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == intType)
+                else if (CurType == RuntimeGraph.I().intType)
                 {
                     RangeAttribute att = (RangeAttribute)info[i].GetCustomAttribute(typeof(RangeAttribute), false);
                     if (att == null)
-                        GetInputer("Int", info[i].Name, info[i].GetValue(Base));
+                        GetInputer("Int", HumanReadableName, info[i].GetValue(Base));
                     else
                     {
                         CachePool.I().GetObject("Prefabs/Content/Int_Range", (obj) =>
                         {
                             obj.transform.SetParent(ContentParent, false);
                             IntRange inputer = obj.GetComponent<IntRange>();
-                            inputer.SetLabel(info[i].Name);
+                            inputer.SetLabel(HumanReadableName);
                             inputer.SetValue(info[i].GetValue(Base));
                             inputer.SetRange(att.min, att.max);
-                            BaseInputer.Add(info[i].Name, inputer);
+                            BaseInputer.Add(HumanReadableName, inputer);
                         });
                     }
                 }
-                else if (CurType == floatType)
+                else if (CurType == RuntimeGraph.I().floatType)
                 {
                     RangeAttribute att = (RangeAttribute)info[i].GetCustomAttribute(typeof(RangeAttribute), false);
                     if (att == null)
-                        GetInputer("Decimal", info[i].Name, info[i].GetValue(Base));
+                        GetInputer("Decimal", HumanReadableName, info[i].GetValue(Base));
                     else
                     {
                         CachePool.I().GetObject("Prefabs/Content/Decimal_Range", (obj) =>
                         {
                             obj.transform.SetParent(ContentParent, false);
                             DecimalRange inputer = obj.GetComponent<DecimalRange>();
-                            inputer.SetLabel(info[i].Name);
+                            inputer.SetLabel(HumanReadableName);
                             inputer.SetValue(info[i].GetValue(Base));
                             inputer.SetRange(att.min, att.max);
-                            BaseInputer.Add(info[i].Name, inputer);
+                            BaseInputer.Add(HumanReadableName, inputer);
                         });
                     }
                 }
-                else if (CurType == Vector2Type)
+                else if (CurType == RuntimeGraph.I().Vector2Type)
                 {
-                    GetInputer("Vector2", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Vector2", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == Vector3Type)
+                else if (CurType == RuntimeGraph.I().Vector3Type)
                 {
-                    GetInputer("Vector3", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Vector3", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == Vector4Type)
+                else if (CurType == RuntimeGraph.I().Vector4Type)
                 {
-                    GetInputer("Vector4", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Vector4", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == QuaternionType)
+                else if (CurType == RuntimeGraph.I().QuaternionType)
                 {
-                    GetInputer("Vector4", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Vector4", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == boolType)
+                else if (CurType == RuntimeGraph.I().boolType)
                 {
-                    GetInputer("Toggle", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Toggle", HumanReadableName, info[i].GetValue(Base));
                 }
-                else if (CurType == enumType)
+                else if (CurType == RuntimeGraph.I().enumType)
                 {
-                    GetInputer("Dropdown", info[i].Name, info[i].GetValue(Base));
+                    GetInputer("Dropdown", HumanReadableName, info[i].GetValue(Base));
                     CachePool.I().GetObject("Prefabs/Content/Dropdown", (obj) =>
                     {
                         obj.transform.SetParent(ContentParent, false);
                         DropdownMenu inputer = obj.GetComponent<DropdownMenu>();
                         object temp = info[i].GetValue(Base);
                         inputer.SetEnum(info[i].FieldType);
-                        inputer.SetLabel(info[i].Name);
+                        inputer.SetLabel(HumanReadableName);
                         inputer.SetValue(temp);
-                        BaseInputer.Add(info[i].Name, inputer);
+                        BaseInputer.Add(HumanReadableName, inputer);
                     });
                 }
             }

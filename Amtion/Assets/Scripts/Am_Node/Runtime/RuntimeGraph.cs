@@ -32,6 +32,18 @@ namespace Amtion.Node.Runtime {
         public bool Saving = false;
         #endregion
 
+        #region BasicType
+        public Type stringType = typeof(string);
+        public Type intType = typeof(int);
+        public Type floatType = typeof(float);
+        public Type Vector2Type = typeof(Vector2);
+        public Type Vector3Type = typeof(Vector3);
+        public Type Vector4Type = typeof(Vector4);
+        public Type QuaternionType = typeof(Quaternion);
+        public Type boolType = typeof(bool);
+        public Type enumType = typeof(Enum);
+        #endregion
+
         private void Start()
         {
             AddNode<StartNode>();
@@ -41,7 +53,7 @@ namespace Amtion.Node.Runtime {
         public void AddRightClickMenu()
         {
             MenuItem Main = new MenuItem();
-            Main.name = "Main";
+            Main.name = "Menu";
 
             MenuItem Obj = GenItem("Amtion.Object");
 
@@ -50,7 +62,6 @@ namespace Amtion.Node.Runtime {
             Main.SubItems.Add(Obj);
             Main.SubItems.Add(Anim);
             RCMenu.OverrideMenu(Main);
-            print(typeof(Object.Am_Text).Namespace);
         }
 
         public MenuItem GenItem(string NameSpace)
@@ -62,7 +73,10 @@ namespace Amtion.Node.Runtime {
             for (int i = 0; i < objects.Length; i++)
             {
                 Type temp = objects[i];
-                Items.Add(temp.Name, () => { AddNode(Type.GetType(temp.Name + "_Node, Amtion.Node")); });
+                Items.Add(temp.Name, () => { 
+                    if(temp != null)
+                        AddNode(Type.GetType("Amtion.Node." + temp.Name + "_Node")); 
+                });
             }
 
             menu.ActualItem.Clear();
@@ -83,6 +97,7 @@ namespace Amtion.Node.Runtime {
             NodeBase node = (NodeBase)Activator.CreateInstance(type);
             node.Init();
             graph.Node.Add(node);
+            Load();
         } 
 
         public void AddNode<T>() where T : NodeBase, new()
@@ -120,13 +135,14 @@ namespace Amtion.Node.Runtime {
                 Nodes[i].Connect();
             }
             yield return null;
+            Save();
         }
 
         public void Save()
         {
             if (graph == null)
                 return;
-            FileOPS.SaveJson(Application.streamingAssetsPath, graph.GraphName, graph);
+            FileOPS.SaveJson(graph.GraphName, graph);
         }
 
         public void Save(string path, string name)

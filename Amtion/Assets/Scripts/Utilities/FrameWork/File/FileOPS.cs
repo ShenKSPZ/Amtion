@@ -17,6 +17,7 @@ namespace Framework
             StreamWriter sw = File.Exists(FullPath) ? new StreamWriter(FullPath) : File.CreateText(FullPath);
             sw.Write(JsonConvert.SerializeObject(content));
             sw.Close();
+            Debug.Log("Write Json File to " + FullPath);
         }
 
         public static void SaveJson(string name, object content)

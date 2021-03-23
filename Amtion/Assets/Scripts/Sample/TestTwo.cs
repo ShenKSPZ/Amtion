@@ -11,30 +11,28 @@ public class TestTwo : MonoBehaviour
     void Start()
     {
         System.Type t = type.GetType();
-        print("FullName: " + t.Name);
+        //print("FullName: " + t.Name);
         FieldInfo[] info = t.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
         for (int i = 0; i < info.Length; i++)
         {
-            print("PropName: " + info[i].Name);
-            print("Type: " + info[i].FieldType);
-            print("Value: " + info[i].GetValue(type));
+            //print("PropName: " + info[i].Name);
+            //print("Type: " + info[i].FieldType);
+            //print("Value: " + info[i].GetValue(type));
             object[] obj = info[i].GetCustomAttributes(false);
 
             TextAreaAttribute att = (TextAreaAttribute)info[i].GetCustomAttribute(typeof(TextAreaAttribute), false);
 
             if(att != null)
             {
-                print(att.minLines);
-                print(att.maxLines);
+                //print(att.minLines);
+                //print(att.maxLines);
             }
 
             for (int a = 0; a < obj.Length; a++)
             {
-                print("Attri: " + obj[a]);
+                //print("Attri: " + obj[a]);
             }
         }
-
-        Framework.FileOPS.SaveJson("233", type);
 
     }
 

@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graph:
-    GraphName: 
+    GraphName: New_Graph
     Node: []
   Pivot: {fileID: 1707616533}
   NodeGroup: {fileID: 674888843}

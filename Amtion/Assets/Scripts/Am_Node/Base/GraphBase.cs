@@ -7,7 +7,7 @@ namespace Amtion.Node
     [System.Serializable]
     public class GraphBase
     {
-        public string GraphName;
-        public List<NodeBase> Node;
+        public string GraphName = "New_Graph";
+        public List<NodeBase> Node = new List<NodeBase>();
     }
 }
