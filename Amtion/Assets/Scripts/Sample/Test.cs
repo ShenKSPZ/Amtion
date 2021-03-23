@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Amtion;
+using Amtion.Object;
+using Amtion.Animation;
 
 public class Test : AmtionScene
 {

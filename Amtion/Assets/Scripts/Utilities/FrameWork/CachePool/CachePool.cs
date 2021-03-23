@@ -98,24 +98,6 @@ namespace Framework
             }
         }
 
-        public void GetNode(string name, NodeBase node, UnityAction<GameObject, NodeBase> callback)
-        {
-            NodeBase Rnode = node;
-            if (PoolDic.ContainsKey(name) && PoolDic[name].PoolList.Count > 0)//判断存在该类缓存池 并且缓存池中有物体
-            {
-                callback?.Invoke(PoolDic[name].Get(), Rnode);
-            }
-            else//以上条件任意一点不满足都可以直接实例化新物体
-            {
-                //通过异步加载资源
-                ResMgr.I().LoadAsync<GameObject>(name, o =>
-                {
-                    o.name = name;
-                    callback?.Invoke(o, Rnode);
-                });
-            }
-        }
-
         /// <summary>
         /// 将物体放入缓存池
         /// </summary>

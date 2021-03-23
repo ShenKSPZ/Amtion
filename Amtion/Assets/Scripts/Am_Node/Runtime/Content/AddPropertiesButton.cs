@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddPropertiesButton : MonoBehaviour
+namespace Amtion.Node.Runtime
 {
-    public void AddProperties()
+    public class AddPropertiesButton : MonoBehaviour
     {
-        transform.GetComponentInParent<RuntimeNode>().AddProperties();
+        public void AddProperties()
+        {
+            transform.GetComponentInParent<RuntimeNode>().AddProperties();
+        }
     }
 }

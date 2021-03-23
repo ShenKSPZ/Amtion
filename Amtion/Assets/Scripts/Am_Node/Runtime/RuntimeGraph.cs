@@ -5,81 +5,130 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Framework;
+using Amtion;
+using System;
+using System.Reflection;
+using System.Linq;
+using UnityEngine.Events;
 
-public class RuntimeGraph : SingletonBaseDestory<RuntimeGraph>
-{
-    public GraphBase graph;
-    public RectTransform Pivot;
-    public RectTransform NodeGroup;
-    public RectTransform LineGroup;
-
-    #region Runtime
-    [HideInInspector]
-    public List<RuntimeNode> Nodes = new List<RuntimeNode>();
-    [HideInInspector]
-    public Dictionary<string, RuntimePort> Ports = new Dictionary<string, RuntimePort>();
-    [HideInInspector]
-    public List<RuntimeLine> Lines = new List<RuntimeLine>();
-
-    [HideInInspector]
-    public bool Saving = false;
-    #endregion
-
-    private void Start()
+namespace Amtion.Node.Runtime {
+    public class RuntimeGraph : SingletonBaseDestory<RuntimeGraph>
     {
-        AddNode<StartNode>();
-    }
+        public GraphBase graph;
+        public RectTransform Pivot;
+        public RectTransform NodeGroup;
+        public RectTransform LineGroup;
+        public RuntimeRightClickContextMenu RCMenu;
 
-    public void AddNode<T>()where T : NodeBase, new()
-    {
-        T node = new T();
-        node.Init();
-        graph.Node.Add(node);
-        Load();
-    }
+        #region Runtime
+        [HideInInspector]
+        public List<RuntimeNode> Nodes = new List<RuntimeNode>();
+        [HideInInspector]
+        public Dictionary<string, RuntimePort> Ports = new Dictionary<string, RuntimePort>();
+        [HideInInspector]
+        public List<RuntimeLine> Lines = new List<RuntimeLine>();
 
-    public void Load(GraphBase newGraph = null)
-    {
-        graph = newGraph != null ? newGraph : graph;
+        [HideInInspector]
+        public bool Saving = false;
+        #endregion
 
-        StartCoroutine(IE_Load());
-    }
-
-    IEnumerator IE_Load()
-    {
-        //Load All Nodes
-        for (int i = 0; i < graph.Node.Count; i++)
+        private void Start()
         {
-            CachePool.I().GetObject("Prefabs/NodeBase", (obj) =>
+            AddNode<StartNode>();
+            AddRightClickMenu();
+        }
+
+        public void AddRightClickMenu()
+        {
+            MenuItem Obj = GenItem("Amtion.Object");
+            MenuItem Anim = GenItem("Amtion.Animation");
+            RCMenu.Item.SubItems.Add(Obj);
+            RCMenu.Item.SubItems.Add(Anim);
+            print(typeof(Object.Am_Text).Namespace);
+        }
+
+        public MenuItem GenItem(string NameSpace)
+        {
+            Type[] objects = GetTypesInNamespace(Assembly.GetExecutingAssembly(), NameSpace);
+            MenuItem menu = new MenuItem();
+            menu.name = NameSpace.Split('.')[1];
+            Dictionary<string, UnityAction> Items = new Dictionary<string, UnityAction>();
+            for (int i = 0; i < objects.Length; i++)
             {
-                obj.transform.SetParent(NodeGroup, false);
-                RuntimeNode rnode = obj.GetComponent<RuntimeNode>();
-                rnode.Load(graph.Node[i]);
-                Nodes.Add(rnode);
-            });
+                Items.Add(objects[i].Name, () => { AddNode(Type.GetType(objects[i].Name + "_Node, Amtion.Node")); });
+            }
+
+            menu.ActualItem.Clear();
+            menu.ActualItem = Items;
+            return menu;
         }
 
-        //Connect All Ports
-        for (int i = 0; i < Nodes.Count; i++)
+        private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
         {
-            Nodes[i].Connect();
+            return
+              assembly.GetTypes()
+                      .Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal))
+                      .ToArray();
         }
-        yield return null;
-    }
 
-    public void Save()
-    {
-        if (graph == null)
-            return;
-        FileOPS.SaveJson(Application.streamingAssetsPath, graph.GraphName, graph);
-    }
+        public void AddNode(Type type)
+        {
+            NodeBase node = (NodeBase)Activator.CreateInstance(type);
+            node.Init();
+            graph.Node.Add(node);
+        } 
 
-    public void Save(string path, string name)
-    {
-        if (graph == null)
-            return;
-        graph.GraphName = name;
-        FileOPS.SaveJson(path, graph.GraphName, graph);
-    }
+        public void AddNode<T>() where T : NodeBase, new()
+        {
+            NodeBase node = new T();
+            node.Init();
+            graph.Node.Add(node);
+            //Load();
+        }
 
+        public void Load(GraphBase newGraph = null)
+        {
+            graph = newGraph != null ? newGraph : graph;
+
+            StartCoroutine(IE_Load());
+        }
+
+        IEnumerator IE_Load()
+        {
+            //Load All Nodes
+            for (int i = 0; i < graph.Node.Count; i++)
+            {
+                CachePool.I().GetObject("Prefabs/NodeBase", (obj) =>
+                {
+                    obj.transform.SetParent(NodeGroup, false);
+                    RuntimeNode rnode = obj.GetComponent<RuntimeNode>();
+                    rnode.Load(graph.Node[i]);
+                    Nodes.Add(rnode);
+                });
+            }
+
+            //Connect All Ports
+            for (int i = 0; i < Nodes.Count; i++)
+            {
+                Nodes[i].Connect();
+            }
+            yield return null;
+        }
+
+        public void Save()
+        {
+            if (graph == null)
+                return;
+            FileOPS.SaveJson(Application.streamingAssetsPath, graph.GraphName, graph);
+        }
+
+        public void Save(string path, string name)
+        {
+            if (graph == null)
+                return;
+            graph.GraphName = name;
+            FileOPS.SaveJson(path, graph.GraphName, graph);
+        }
+
+    }
 }

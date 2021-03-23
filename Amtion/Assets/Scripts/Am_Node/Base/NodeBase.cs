@@ -2,30 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[Serializable]
-public class NodeBase
+namespace Amtion.Node
 {
-    public int[] NodePosition = new int[] { 0, 0 };
-    public string UID = string.Empty;
-    public string Label = string.Empty;
-    public List<PortBase> InputPorts = new List<PortBase>();
-    public List<PortBase> OutputPorts = new List<PortBase>();
-    public List<string> ShowedPropertiesList = new List<string>();
-
-    public virtual void Init()
+    [Serializable]
+    public class NodeBase
     {
-        SetUID();
-    }
+        public int[] NodePosition = new int[] { 0, 0 };
+        public string UID = string.Empty;
+        public string Label = string.Empty;
+        public List<PortBase> InputPorts = new List<PortBase>();
+        public List<PortBase> OutputPorts = new List<PortBase>();
+        public List<string> ShowedPropertiesList = new List<string>();
 
-    public void SetUID()
-    {
-        if (UID == string.Empty)
+        public Dictionary<string, UnityAction> ContextMenu = new Dictionary<string, UnityAction>();
+
+        public virtual void Init()
+        {
+            SetUID();
+        }
+
+        public void SetUID()
+        {
+            if (UID == string.Empty)
+                UID = Guid.NewGuid().ToString();
+        }
+
+        public void ForceSetUID()
+        {
             UID = Guid.NewGuid().ToString();
-    }
-
-    public void ForceSetUID()
-    {
-        UID = Guid.NewGuid().ToString();
+        }
     }
 }

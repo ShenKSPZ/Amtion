@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartNode : NodeBase
+namespace Amtion.Node
 {
-    public override void Init()
+    public class StartNode : NodeBase
     {
-        base.Init();
-        Label = "Start Node";
-        NodePosition = new int[] { 960, 540 };
-        OutputPorts.Add(new PortBase()
+        public override void Init()
         {
-            Text = "Start",
-            type = typeof(Amtion).ToString()
-        }.Init());
+            base.Init();
+            Label = "Start Node";
+            NodePosition = new int[] { 960, 540 };
+            OutputPorts.Add(new PortBase()
+            {
+                Text = "Start",
+                type = typeof(Object.Am_Text).ToString()
+            }.Init());
+        }
     }
+
 }

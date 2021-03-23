@@ -4,35 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using Framework;
 
-public class RuntimePort : MonoBehaviour
+namespace Amtion.Node.Runtime
 {
-    public PortBase Base;
-    public Text text;
-
-    public void Load(PortBase port)
+    public class RuntimePort : MonoBehaviour
     {
-        //Set current base
-        Base = port == null ? Base : port;
+        public PortBase Base;
+        public Text text;
 
-        //Set Text
-        text.text = port.Text;
-    }
-
-    public void Connect()
-    {
-        for (int i = 0; i < Base.ConnectPortID.Count; i++)
+        public void Load(PortBase port)
         {
-            DrawConnectLine(this, RuntimeGraph.I().Ports[Base.ConnectPortID[i]]);
+            //Set current base
+            Base = port == null ? Base : port;
+
+            //Set Text
+            text.text = port.Text;
         }
-    }
 
-    public void DrawConnectLine(RuntimePort A, RuntimePort B)
-    {
-        CachePool.I().GetObject("Prefabs/Line", (obj) =>
+        public void Connect()
         {
-            obj.transform.SetParent(RuntimeGraph.I().LineGroup, false);
-            RuntimeLine line = obj.GetComponent<RuntimeLine>();
-            line.Draw(A, B);
-        });
+            for (int i = 0; i < Base.ConnectPortID.Count; i++)
+            {
+                DrawConnectLine(this, RuntimeGraph.I().Ports[Base.ConnectPortID[i]]);
+            }
+        }
+
+        public void DrawConnectLine(RuntimePort A, RuntimePort B)
+        {
+            CachePool.I().GetObject("Prefabs/Line", (obj) =>
+            {
+                obj.transform.SetParent(RuntimeGraph.I().LineGroup, false);
+                RuntimeLine line = obj.GetComponent<RuntimeLine>();
+                line.Draw(A, B);
+            });
+        }
     }
 }
