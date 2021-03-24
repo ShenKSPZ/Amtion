@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using FunctionExtend;
 
 namespace Amtion.Node
 {
@@ -10,7 +11,7 @@ namespace Amtion.Node
     public class NodeBase
     {
         [HideField]
-        public int[] NodePosition = new int[] { 0, 0 };
+        public SVector2 NodePosition = SVector2.zero;
         [HideField]
         public string UID = string.Empty;
         [HideField]
@@ -21,8 +22,9 @@ namespace Amtion.Node
         public List<PortBase> OutputPorts = new List<PortBase>();
         [HideField]
         public List<string> ShowedPropertiesList = new List<string>();
-        [HideField]
-        public Dictionary<string, UnityAction> ContextMenu = new Dictionary<string, UnityAction>();
+        //TODO: Find a new way to do this context
+        //[HideField]
+        //public Dictionary<string, UnityAction> ContextMenu = new Dictionary<string, UnityAction>();
 
         public virtual void Init()
         {

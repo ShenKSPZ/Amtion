@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FunctionExtend;
 
 namespace Amtion.Node
 {
@@ -10,7 +11,7 @@ namespace Amtion.Node
         {
             base.Init();
             Label = "Start Node";
-            NodePosition = new int[] { 960, 540 };
+            NodePosition = new SVector2(960, 540);
             OutputPorts.Add(new PortBase()
             {
                 Text = "Start",

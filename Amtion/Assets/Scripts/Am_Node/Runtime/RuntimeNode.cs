@@ -27,7 +27,7 @@ namespace Amtion.Node.Runtime
             Base = node != null ? node : Base;
 
             //Set position
-            transform.localPosition = new Vector3(Base.NodePosition[0], Base.NodePosition[1]);
+            transform.localPosition = new Vector3(Base.NodePosition.x, Base.NodePosition.y);
 
             //Set label
             Label.text = Base.Label;

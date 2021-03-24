@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FunctionExtend;
 
 namespace Amtion.Node
 {
@@ -9,13 +10,13 @@ namespace Amtion.Node
     {
 
         public string Text = string.Empty;
-        public Vector3 Fill_Color = Vector3.zero;
+        public SVector3 Fill_Color = SVector3.zero;
 
         public override void Init()
         {
             base.Init();
             Label = "Text Obj";
-            NodePosition = new int[] { 960, 540 };
+            NodePosition = new SVector2(960, 540);
 
             InputPorts.Add(new PortBase()
             {
